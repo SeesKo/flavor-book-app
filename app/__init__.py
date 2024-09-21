@@ -1,3 +1,6 @@
+"""
+Flask application factory and configuration.
+"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -7,6 +10,7 @@ from datetime import datetime
 import os
 
 
+# Initialize extensions
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -15,6 +19,9 @@ migrate = Migrate()
 
 
 def create_app():
+    """
+    Create and configure the Flask application.
+    """
     app = Flask(__name__)
 
     # Ensure 'instance' folder exists before setting SQLAlchemy URI
@@ -46,12 +53,18 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
+        """
+        Load a user from the database by user ID.
+        """
         return User.query.get(int(user_id))
 
 
     # Custom Jinja2 filter for "time ago"
     @app.template_filter('time_ago')
     def time_ago(date):
+        """
+        Convert a datetime object to a relative time string.
+        """
         now = datetime.utcnow()
         diff = now - date
 
