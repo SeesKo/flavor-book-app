@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorBook - Learn to Cook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">FlavorBook</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="plate">
+            <!-- Left Panel: Background Image with Text -->
+            <div class="background-image">
+                <div class="overlay-text">
+                    <h1>FlavorBook</h1>
+                    <p>Learn how to create delicious dishes in just minutes...</p>
+                    <p>Or share your own recipes with others!</p>
+                </div>
+            </div>
+
+            <!-- Right Panel: Login Form -->
+            <div class="login-form">
+                <h1>Sign In</h1>
+                <form action="{{ url_for('main.login') }}" method="post">
+                    <label for="email">Email Address</label>
+                    <div class="email-error-msg" id="email-error-msg"></div>
+                    <input type="email" id="email" name="email" autocomplete="email" required>
+
+                    <label for="password">Password</label>
+                    <div class="password-error-msg" id="password-error-msg"></div>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" minlength="8" autocomplete="current-password" required>
+                        <span class="toggle-password" onclick="togglePassword('password', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+                    </div>
+
+                    <button type="submit" class="login">Log In</button>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </form>
+                <div class="alternative">
+                    <span>-- OR --</span>
+                    <button type="button" class="signup" id="signupButton">Sign Up For Free</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="year"></span> FlavorBook.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Sign Up</h1>
+            <form id="signupForm" action="{{ url_for('main.signup') }}" method="post">
+                <label for="name">Name (required)</label>
+                <div class="signup-name-error-msg" id="signup-name-error-msg"></div>
+                <input type="text" id="name" name="name" autocomplete="name" maxlength="20" required>
+
+                <label for="signupEmail">Email Address (required)</label>
+                <div class="signup-email-error-msg" id="signup-email-error-msg"></div>
+                <input type="email" id="signupEmail" name="email" autocomplete="email" required>
+
+                <label for="signupPassword">Password (required)</label>
+                <div class="signup-password-error-msg" id="signup-password-error-msg"></div>
+                <div class="password-container">
+                    <input type="password" id="signupPassword" name="password" minlength="8" autocomplete="new-password" required>
+                    <span class="toggle-password" onclick="togglePassword('signupPassword', this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+
+                <label for="confirmPassword">Confirm Password (required)</label>
+                <div class="signup-confirm-error-msg" id="signup-confirm-error-msg"></div>
+                <div class="password-container">
+                    <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" autocomplete="new-password" required>
+                    <span class="toggle-password" onclick="togglePassword('confirmPassword', this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+
+                <button type="submit" class="signup-submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

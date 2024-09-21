@@ -1,0 +1,409 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Style */
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+/* Header Style */
+header {
+    background-color: #900500;
+    color: white;
+    padding: 15px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto; /* Center the content horizontally */
+}
+
+.header-content .logo {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 0 0 40px;
+}
+
+/* Container to hold both panels */
+.container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust for header height */
+    overflow: hidden;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Thin space around the container */
+    box-sizing: border-box; /* Include padding in the container's size */
+    margin: 10px 0;
+}
+
+/* Plate/container with max-width */
+.plate {
+    display: flex;
+    width: 100%;
+    max-width: 1200px; /* Max width of the plate */
+    height: 100%; /* Full height to fill the container */
+    border-radius: 50px; /* Optional: rounded corners for aesthetics */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow effect */
+    overflow: hidden; /* Ensure no overflow of content */
+}
+
+/* Background image panel */
+.background-image {
+    flex: 1.5;
+    background-image: url('../images/login-image.jpg');
+    background-size: cover;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    position: relative; /* For absolute positioning of text and overlay */
+    height: 100%; /* Ensure it takes full height */
+}
+
+/* Dark overlay on background image */
+.background-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Black overlay with 30% opacity */
+    z-index: 1; /* Make sure it sits above the image but below text */
+}
+
+/* Overlay Text */
+.overlay-text {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    transform: translate(-50%, -50%); /* Center text */
+    color: white;
+    padding: 20px;
+    z-index: 2; /* Ensure text appears above the overlay */
+}
+
+.overlay-text h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    color: #FFAD00;
+    text-align: left;
+}
+
+.overlay-text p {
+    font-size: 1.75em;
+    padding: 10px 5px;
+}
+
+/* Login form panel */
+.login-form {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    height: 100%; /* Full height to fill the plate */
+    overflow: auto; /* Allow scrolling if content overflows */
+    margin: 0; /* No extra margin around the form */
+    box-sizing: border-box; /* Include padding in the height */
+}
+
+/* Style for the text and form */
+h1 {
+    font-size: 2.5em;
+    color: #900500;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Label styles */
+.login-form label {
+    margin: 0 0 5px 3px;
+    color: #666;
+}
+
+/* Error message styles */
+.email-error-msg, .password-error-msg {
+    color: red;
+    font-size: 14px;
+    display: none;  /* Initially hidden */
+    margin-left: 0px;  /* Space between input and error message */
+}
+
+/* Show error messages */
+.email-error-msg.show, .password-error-msg.show {
+    display: inline;  /* Show error message */
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Password input container with eye toggle */
+.password-container {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0;  /* Space from the right edge */
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    cursor: pointer;
+    color: #888;
+    padding: 0; /* Ensure no extra padding */
+    margin: 0; /* Ensure no extra margin */
+    height: auto; /* Let the height adjust naturally */
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+.toggle-password i {
+    margin-top: -5px;
+    padding: 15px;
+    border-left: 1px solid #ccc;
+    vertical-align: middle;
+}
+
+button {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full width buttons */
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #a00000;
+}
+
+button:active {
+    background-color: #660000; /* Darker shade on click */
+    transform: translateY(1px); /* Slight downward movement to mimic a "press" effect */
+}
+
+.login {
+    background-color: #900500;
+    color: white;
+}
+
+.signup {
+    background-color: transparent;
+    color: #900500;
+    border: 2px solid #900500;
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #900500;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #FF2C2C;
+    text-decoration: underline;
+}
+.alternative {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.alternative span {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.alternative button:hover {
+    background-color: #FFFFF0;
+}
+
+@media (max-width: 768px) {
+    .background-image {
+        display: none; /* Hide background image on small screens */
+    }
+    .container {
+        height: 100vh; /* Full viewport height */
+    }
+    .plate {
+        flex-direction: column;
+        padding: 10px; /* Add small padding on smaller screens */
+        border-radius: 10px;
+    }
+    .login-form {
+        padding: 20px; /* Adjust padding if needed */
+        margin: 10px; /* Small space around the form */
+    }
+}
+
+/* Footer Style */
+footer {
+    background-color: #900500; /* Footer background color */
+    color: white;
+    padding: 20px 0; /* Adjust top/bottom padding */
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    padding-top: 50px; /* Padding for top */
+}
+
+.modal-content {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background-color: #fff;
+    margin: 5% auto; /* 5% from top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Optional: restrict maximum width */
+    border-radius: 8px; /* Optional: rounded corners */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal h1 {
+    font-size: 2.5em;
+    color: #900500;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal label {
+    margin-left: 3px;
+    color: #666;
+}
+
+/* Error message styles */
+.signup-email-error-msg, .signup-password-error-msg, .signup-confirm-error-msg {
+    color: red;
+    font-size: 14px;
+    display: none;  /* Initially hidden */
+    margin-left: 0px;  /* Space between input and error message */
+}
+
+/* Show error messages */
+.signup-email-error-msg.show, .signup-password-error-msg.show, .signup-confirm-error-msg.show {
+    display: inline;  /* Show the error message */
+}
+
+/* Input fields */
+.modal input[type="text"],
+.modal input[type="email"],
+.modal input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 40px; /* Set explicit height */
+    line-height: 1.2; /* Control line-height to reduce vertical spacing */
+}
+
+/* Password input container */
+.modal-content .password-container {
+    position: relative;
+    width: 100%;
+    margin: 0; /* Remove margin from the container */
+}
+
+/* Eye icon container */
+.modal-content .toggle-password {
+    position: absolute;
+    right: 0;  /* Space from the right edge */
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    cursor: pointer;
+    color: #888;
+    padding: 0; /* Ensure no extra padding */
+    margin: 0; /* Ensure no extra margin */
+    height: auto; /* Let the height adjust naturally */
+}
+
+/* Hover state */
+.modal-content .toggle-password:hover {
+    color: #333;
+}
+
+/* Eye icon styling */
+.modal-content .toggle-password i {
+    margin-top: -5px; /* Ensure no margins */
+    padding: 10px; /* Ensure no padding */
+    vertical-align: middle; /* Align icon vertically */
+}
+
+.modal .signup-submit {
+    background-color: #900500;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Full width */
+}
+
+.modal .signup-submit:hover {
+    background-color: #a00000;
+}
+
+.modal .signup-submit:active {
+    background-color: #660000;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Recipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+</head>
+<body>
+    <!-- Header inclusion -->
+    {% include 'header.html' %}
+    <div class="container">
+        <div class="form-container">
+            <h2><i class="bi bi-pencil-square"></i> Edit Recipe</h2>
+            <form id="editForm" action="{{ url_for('main.edit_recipe', recipe_id=recipe.id) }}" method="post" enctype="multipart/form-data">
+                <label for="title">
+                    Title (Required)
+                    <span id="titleFeedback" class="feedback"></span>
+                    <div class="label-guide">(A brief self-explanatory title for your recipe)</div>
+                </label>
+                <input type="text" id="title" name="title" value="{{ recipe.title }}" required>
+
+                <label for="description">
+                    Description (Required)
+                    <span id="descriptionFeedback" class="feedback"></span>
+                    <div class="label-guide">(An introductory description or short story about the food or recipe.)</div>
+                </label>
+                <textarea id="description" name="description" required>{{ recipe.description }}</textarea>
+
+                <label for="image">
+                    Image (Required)
+                    <span id="errorContainer" class="feedback"></span>
+                    <div class="label-guide">
+                        (Keep your current image, or upload a new one to replace it. Uploading a new image will delete the existing one.<br>
+                        Image must not be larger than 4MB. Upload a 1200x800 pixels image for the best resolution.)
+                    </div>
+                </label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <div class="image-preview" id="imagePreviewContainer">
+                    <img id="existingImage" src="{{ url_for('static', filename='uploads/' ~ recipe.image_file) }}" alt="{{ recipe.title }}">
+                </div>
+                <div class="error-message" id="errorContainer">
+                    <!-- Error messages will appear here -->
+                </div>
+
+                <label for="ingredients">
+                    Ingredients (Required)
+                    <span id="ingredientsFeedback" class="feedback"></span>
+                    <div class="label-guide">
+                        (Don't number your ingredients. Write the ingredient e.g. '2 onions' then press ENTER
+                        to write the next ingredient. Ingredients will be automatically numbered.)
+                    </div>
+                </label>
+                <textarea id="ingredients" name="ingredients" rows="6" required>{{ recipe.ingredients }}</textarea>
+
+                <label for="prep">
+                    Preparation (Required)
+                    <span id="prepFeedback" class="feedback"></span>
+                    <div class="label-guide">
+                        (Don't number your procedure. Write the step e.g. 'Preheat the oven for 10min @180°C'
+                        then press ENTER to start writing the next step. Methods will be automatically numbered.)
+                    </div>
+                </label>
+                <textarea id="prep" name="prep" rows="6" required>{{ recipe.preparation }}</textarea>
+
+                <label for="tags">
+                    Tags (Optional)
+                    <span id="tagsFeedback" class="feedback"></span>
+                </label>
+                <input type="text" id="tags" name="tags" value="{{ recipe.tags }}">
+
+                <div class="buttons">
+                    <button type="submit" class="btn-create">Save</button>
+                    <a href="{{ url_for('main.recipe', recipe_id=recipe.id) }}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer inclusion -->
+    {% include 'footer.html' %}
+
+    <!-- Modal Structure -->
+    <div id="customAlert" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-title">Required Fields</h2>
+            <p class="modal-message">Please fill out all required fields correctly before creating the recipe.</p>
+            <button id="okButton" class="modal-button">OK</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/header.js') }}"></script>
+</body>
+</html>

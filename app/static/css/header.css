@@ -1,0 +1,131 @@
+.header {
+    background-color: #900500;
+    color: white;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .logo a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.header .search-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    width: 50%;
+    max-width: 600px;
+}
+
+.search-container form {
+    display: flex;
+}
+
+.search-container input {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    width: 80%;
+    padding: 5px 5px 5px 15px;
+    border-radius: 15px 0 0 15px;
+    font-size: 1em;
+    border: 1px solid #808080;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-container button {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    padding: 5px 10px;
+    border: 1px solid #808080;
+    background-color: #333;
+    color: white;
+    font-size: 1em;
+    border-radius: 0 15px 15px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.search-container button:hover {
+    background-color: #FFDF00;
+    color: #333;
+}
+
+.search-container button:active {
+    background-color: #555;
+    transform: translateY(0.5px);
+}
+
+.header .user-menu {
+    position: relative;
+}
+
+.header .user-menu button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px;
+}
+
+.header .user-menu .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 4px 4px 8px 8px;
+    padding: 10px;
+    min-width: 120px;
+}
+
+.header .user-menu .dropdown a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    margin: 4px;
+    padding: 10px 5px;
+    border-radius: 4px;
+}
+
+.header .user-menu .dropdown a:hover {
+    background-color: #f0f0f0;
+}
+
+.settings-link i {
+    margin-right: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+.header .user-menu .dropdown .logout-link {
+    font-family: Trebuchet MS, Arial, sans-serif;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px 28px 10px 5px;
+    margin-left: 5px;
+    margin-bottom: 4px;
+}
+
+.header .user-menu .dropdown .logout-link:hover {
+    background-color: #eee;
+}
+
+.header .user-menu .dropdown .logout-link i {
+    margin-right: 5px;
+    font-size: 0.8em;
+    vertical-align: middle;
+}

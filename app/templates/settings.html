@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/png">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <a href="{{ url_for('main.home') }}">FlavorBook</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1><i class="fa-solid fa-gear"></i> Account Settings</h1>
+        <hr>
+
+        <div class="section">
+            <div class="section-title"><i class="fa-solid fa-signature"></i> · Name</div>
+            <div class="section-content">{{ current_user.username }}</div>
+            <button class="edit-btn" onclick="openModal('nameModal')">Edit</button>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <div class="section-title"><i class="fa-solid fa-envelope"></i> · Email Address</div>
+            <div class="section-content">{{ current_user.email }}</div>
+            <button class="edit-btn" onclick="openModal('emailModal')">Edit</button>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <div class="section-title"><i class="fa-solid fa-lock"></i> · Password</div>
+            <div class="section-content">********</div>
+            <button class="edit-btn" onclick="openModal('passwordModal')">Edit</button>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <div class="section-title"><i class="fa-solid fa-trash-can"></i> · Delete Account</div>
+            <button class="delete-btn" onclick="openModal('deleteModal')">Delete Account</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; <span id="year"></span> FlavorBook.
+    </footer>
+
+    <!-- Modal for Name -->
+    <div id="nameModal" class="modal">
+        <div class="modal-content">
+            <h2>Change Name</h2>
+            <input type="text" id="nameInput" value="{{ current_user.username }}" maxlength="20">
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="updateName()">Save</button>
+                <button class="close-btn" onclick="closeModal('nameModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Email -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <h2>Change Email Address</h2>
+            <input type="email" id="emailInput" value="{{ current_user.email }}" required>
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="updateEmail()">Save</button>
+                <button class="close-btn" onclick="closeModal('emailModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Password with Eye Icon -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h2>Change Password</h2>
+
+            <p>Enter Current Password</p>
+            <div class="password-container">
+                <input type="password" id="currentPassword" placeholder="Current Password">
+                <span class="toggle-password" onclick="togglePassword('currentPassword', this)">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+            </div>
+
+            <p>Enter New Password</p>
+            <div class="password-container">
+                <input type="password" id="newPassword" placeholder="New Password">
+                <span class="toggle-password" onclick="togglePassword('newPassword', this)">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+            </div>
+
+            <p>Confirm New Password</p>
+            <div class="password-container">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                <span class="toggle-password" onclick="togglePassword('confirmPassword', this)">
+                    <i class="fa-solid fa-eye"></i>
+                </span>
+            </div>
+
+            <!-- Display error message if needed -->
+            <p id="passwordError" style="color: red; display: none;"></p>
+
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="updatePassword()">Save</button>
+                <button class="close-btn" onclick="closeModal('passwordModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Account Deletion -->
+    <div id="deleteModal" class="modal" onclick="clickOutsideModal(event, 'deleteModal')">
+        <div class="delete-section">
+            <!-- Close Button (X) at the top-right -->
+            <span class="modal-close-btn" onclick="closeModal('deleteModal')">&times;</span>
+            <h2>Account Deletion</h2>
+            <p>We’re sorry to see you go. If you have any feedback on how we can improve your experience, we’d love to hear it.</p>
+            <p>Please note that deleting your account is permanent.
+                <br>Once your account is deleted, you will no longer have access to any recipes you’ve posted, or the likes and reviews you’ve received.</p>
+            <p>If you’re unsure, you can log out and choose to return at any time.</p>
+            <p>Thank you for being a part of our community.</p>
+            <div class="end-buttons">
+                <form id="deleteAccountForm" action="{{ url_for('main.delete_account') }}" method="post">
+                    <button type="button" class="destroy-btn" onclick="confirmDeletion()">Delete Account</button>
+                </form>
+                <button class="logout-btn" onclick="logoutUser()">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

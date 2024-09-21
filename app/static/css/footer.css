@@ -1,0 +1,13 @@
+/* App Footer Styling */
+footer {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: auto;
+    position: relative;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}

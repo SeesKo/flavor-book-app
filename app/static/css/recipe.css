@@ -1,0 +1,469 @@
+body {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title-container {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display:inline-block;
+    background-color: #FEEAA9;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #FFAD00;
+    padding: 10px 15px;
+}
+
+/* Styling for the new author and menu segment */
+.author-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 15px;
+    position: relative; /* Ensure the menu is positioned relative to this container */
+}
+
+.author-name {
+    font-weight: bold;
+    display: inline;
+}
+.post-author {
+    padding-right: 5px;
+}
+.post-time {
+    font-weight: normal;
+    padding-left: 5px;
+    color: #555;
+}
+
+.menu-dots {
+    cursor: pointer;
+    font-size: 18px;
+    color: #000;
+}
+
+.menu {
+    position: absolute;
+    right: 0; /* Align to the right within the author-menu */
+    top: 25px; /* Adjust top value as needed */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 7px;
+    margin: 0;
+}
+
+.menu li {
+    padding: 0;
+}
+
+.menu li button {
+    font-family: Arial, Helvetica, sans-serif;
+    background: none;
+    border: none;
+    padding: 12px 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.menu li button i {
+    padding-right: 4px;
+}
+
+.menu li button:hover {
+    background: #eee;
+}
+
+.hidden {
+    display: none;
+}
+
+.image-description {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.image {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.image img {
+    width: 100%;
+    aspect-ratio: 6 / 4;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid #900500;
+}
+
+.description {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.card {
+    background-color: #F1E9D2;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px 10px 10px 50px;
+    padding: 15px;
+    box-sizing: border-box;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Shadow effect */
+    margin-top: 30px;
+    width: 100%;
+
+}
+
+.card h3 {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.h-underlines {
+    border: none;
+    border-top: 1.5px solid #54BC1A;
+}
+
+.ingredients-preparation {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.ingredients-preparation h3 {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0 0 3px 5px;
+}
+
+.ingredients, .preparation {
+    flex: 1;
+    background-color: #F0FFF0;
+    border-radius: 8px 30px 8px 8px;
+    padding: 15px;
+    margin: 0 10px;
+}
+
+.ingredients {
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ingredients ul {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.ingredients ul li {
+    position: relative;
+    padding-left: 20px; /* Space for the checkmark */
+    margin-bottom: 3px; /* Space between list items */
+}
+
+.ingredients ul li::before {
+    content: '\2714'; /* Unicode for checkmark */
+    position: absolute;
+    left: 0; /* Position checkmark at the start */
+    color: green; /* Change color as needed */
+    font-size: 15px; /* Adjust size as needed */
+}
+
+.preparation {
+    flex: 1.3;
+    background-color: #FEF8E2;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.preparation ol {
+    text-align: justify;
+    list-style-type: none; /* Remove default list numbers */
+    padding-left: 0; /* Remove default padding */
+    margin-left: 0; /* Remove default margin */
+    font-size: 16px; /* Adjust size as needed */
+}
+
+.preparation ol li {
+    position: relative; /* Required for positioning the custom marker */
+    padding-left: 30px; /* Space for the custom marker */
+    margin-bottom: 15px; /* Space between list items */
+}
+
+/* Style the list item numbers */
+.preparation ol li::before {
+    content: counter(list-item) ". "; /* Use custom counter format */
+    position: absolute; /* Position absolutely within the li */
+    left: 0; /* Position at the left edge of the li */
+    color: #A40000;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-weight: bold;
+}
+
+hr {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #ddd;
+    margin: 10px 0;
+}
+
+/* Like Section */
+.like-section {
+    padding: 7px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.like-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: #000; /* Default color */
+}
+
+.like-button.liked {
+    color: #A40000; /* Red color for liked state */
+}
+
+.like-button:hover {
+    color: #FF0000; /* Hover color */
+}
+
+.like-button:focus {
+    outline: none;
+}
+
+.like-count {
+    font-size: 15px; /* Adjust as needed */
+    color: #000; /* Default color */
+    margin-left: 0px; /* Adjust spacing as needed */
+}
+
+.like-count.liked {
+    color: #A40000; /* Red color for liked state */
+}
+
+/* Tags Section */
+.tags-section {
+    padding: 0 15px;
+}
+
+.tags {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background-color: #e6e6e6;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.comment-section {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.comment-section p {
+    font-size: 15px;
+    text-align: right;
+    padding: 0 10px 15px 10px;
+    margin: 0;
+}
+
+.comment-section .no-comments {
+    color: grey;
+}
+
+.comment-section .has-comments {
+    color: green;
+}
+
+.comment-box {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom: 5px;
+}
+
+.comment-button {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background-color: #800000;
+    color: white;
+    font-size: 15px;
+    padding: 10px 15px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.comment-button:hover {
+    background-color: #A00000;
+}
+
+.comment-button:active {
+    background-color: #660000;
+    transform: translateY(1px);
+}
+
+.user-comment {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 8px;
+}
+
+.comment-author {
+    color: #900500;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.comment-author i {
+    font-size: 13px;
+}
+
+.delete-icon {
+    cursor: pointer; /* Show a pointer to indicate it's clickable */
+    color: grey; /* Default color of the icon */
+    font-size: 16px; /* Adjust size of the icon as needed */
+}
+
+.delete-icon:hover {
+    color: #900500; /* Change color on hover */
+    transition: color 0.2s ease; /* Smooth transition */
+}
+
+.comment-text {
+    color: #555;
+    padding-left: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px; /* Background margin on smaller screens */
+    }
+
+    .image-description, .ingredients-preparation {
+        flex-direction: column;
+    }
+
+    .description {
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .ingredients, .preparation {
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px; /* Ensure background margin */
+    }
+
+    .comment-box {
+        padding: 10px;
+        margin: 0; /* Full width with padding */
+    }
+}
+
+/* Custom Delete Confirmation Modal Styling */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 315px;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.delete-button, .cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+}
+
+.cancel-button {
+    background-color: gray;
+    color: white;
+}

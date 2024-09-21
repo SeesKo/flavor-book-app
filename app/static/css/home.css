@@ -1,0 +1,238 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/lg-background.jpg');
+    overflow-x: hidden;
+}
+
+.subheader {
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 auto; /* Center it horizontally */
+    max-width: 1200px; /* Maximum width matching the container's max width */
+    width: calc(100% - 40px); /* Adjust width relative to the container */
+}
+
+.create-recipe-button {
+    display: inline-block;
+    background-color: #800000; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    text-decoration: none;
+    padding: 10px 20px; /* Button padding */
+    margin-bottom: 5px;
+    font-size: 17px; /* Text size */
+    font-weight: bold; /* Bold text */
+    border-radius: 30px; /* Rounded corners */
+    cursor: pointer; /* Cursor changes to pointer */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition */
+}
+
+.create-recipe-button:hover {
+    background-color: #a00000; /* Slightly lighter shade on hover */
+}
+
+.create-recipe-button:active {
+    background-color: #660000; /* Darker shade on click */
+    transform: translateY(2px); /* Slight downward movement to mimic "press" effect */
+}
+
+/* Style for the separator line */
+.subheader-separator {
+    border: none;
+    border-top: 1px solid #808080;
+}
+
+/* Style for container*/
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px 30px;
+    margin: 0 auto 30px auto;
+    max-width: 1200px;
+    min-height: 100vh;
+}
+
+.container p {
+    text-align: center;
+}
+
+.card {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 30%;
+    text-align: center;
+    padding: 10px;
+}
+
+.card img {
+    width: 100%; /* Ensures the image fills the container's width */
+    height: auto; /* Maintains aspect ratio */
+    object-fit: cover; /* Ensures the image covers the container without distortion */
+    aspect-ratio: 3 / 2; /* Sets the aspect ratio to 6x4 (3:2 ratio) */
+    border-radius: 5px; /* Optional: adds a slight border radius for aesthetics */
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.card h2 {
+    font-family: 'Segoe UI', Tahoma, Arial, Verdana, sans-serif;
+    font-size: 18px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    text-transform: capitalize;
+}
+
+.card-separator {
+    border: none;
+    border-top: 1px solid #BEBEBE;
+}
+
+.card p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #555;
+    font-size: 14px;
+    display: -webkit-box; /* WebKit-based browsers */
+    -webkit-line-clamp: 2; /* Limits text to 2 lines */
+    -webkit-box-orient: vertical; /* Vertical orientation for box model */
+    overflow: hidden; /* Hides overflowed content */
+    text-overflow: ellipsis; /* Adds ellipsis at the end */
+
+    /* Fallback styles */
+    /*display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 0 10px;
+    font-size: 13px;
+    color: #777;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.card-footer .likes {
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+.card-footer .time {
+    text-align: right;
+    color: #192841;
+}
+
+.card-footer .likes i,
+.card-footer .time i {
+    margin-right: 3px;
+}
+
+.card-footer .no-likes {
+    color: grey;
+}
+
+.card-footer .has-likes {
+    color: #900500;
+}
+
+.card-footer .has-likes i {
+    color: #F5BF03;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .card {
+        width: 90%;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+        gap: 10px 10px;
+    }
+
+    .card {
+        width: 90%;
+        margin: 10px auto;
+    }
+}
+
+/* Navigation */
+nav[aria-label="Page navigation"] {
+    text-align: center; /* Ensure the nav itself is centered */
+    width: 100%;        /* Make sure nav is full width */
+    margin: 0;          /* Remove any default margin */
+    padding: 0;         /* Remove any padding */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* This centers the list of items horizontally */
+    align-items: center;     /* Ensures vertical alignment is consistent */
+    padding: 0;
+    margin: 0 auto;          /* Ensure no extra margins are being added */
+    list-style: none;        /* Ensure no bullets or extra space from list */
+}
+
+.page-item {
+    list-style: none;
+    margin: 0 5px 25px 5px;           /* Space between each pagination item */
+    padding: 0;              /* Remove padding if any */
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;             /* Set width and height for the circle */
+    height: 40px;
+    border-radius: 50%;     /* Make it circular */
+    color: #b30000;         /* Text color for the link */
+    text-decoration: none;  /* Remove underline */
+    border: 1px solid #ddd; /* Border color */
+    background-color: white;/* Background color */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.page-link:hover {
+    color: #830e00;
+    font-weight: bold;
+}
+
+.page-item.active .page-link {
+    background-color: #580000;
+    color: white;
+    border-color: #830e00;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+}
+
+.page-item.disabled .page-link {
+    color: #999;
+    pointer-events: none;
+    background-color: #f8f9fa;
+}
