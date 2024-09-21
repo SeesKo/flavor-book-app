@@ -1,13 +1,19 @@
+"""
+Database models for user, recipe, comment, and like management.
+"""
 from datetime import datetime
 from . import db, bcrypt
 from flask_login import UserMixin
 
 
 class User(db.Model, UserMixin):
+    """
+    User model for application users.
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # Make sure this length matches your bcrypt hash length
+    password = db.Column(db.String(128), nullable=False)
     recipes = db.relationship('Recipe', backref='author', lazy=True)
     likes = db.relationship('Like', backref='user', lazy=True)
 
@@ -24,6 +30,9 @@ class User(db.Model, UserMixin):
 
 
 class Recipe(db.Model):
+    """
+    Recipe model representing a recipe created by a user.
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
@@ -32,8 +41,14 @@ class Recipe(db.Model):
     tags = db.Column(db.String(200), nullable=True)
     image_file = db.Column(db.String(120), nullable=False, default='default.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    comments = db.relationship('Comment', backref='recipe', lazy=True, cascade="all, delete-orphan")
-    likes = db.relationship('Like', backref='recipe', lazy=True, cascade='all, delete-orphan')
+    comments = db.relationship(
+        'Comment', backref='recipe',
+        lazy=True, cascade="all, delete-orphan"
+    )
+    likes = db.relationship(
+        'Like', backref='recipe',
+        lazy=True, cascade='all, delete-orphan'
+    )
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -41,6 +56,9 @@ class Recipe(db.Model):
 
 
 class Comment(db.Model):
+    """
+    Comment model representing user comments on recipes.
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
@@ -52,6 +70,9 @@ class Comment(db.Model):
 
 
 class Like(db.Model):
+    """
+    Like model representing user likes on recipes.
+    """
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'), nullable=False)
