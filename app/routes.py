@@ -1,7 +1,9 @@
+"""
+Flask routes for user authentication and recipe management.
+"""
 from flask import Blueprint, render_template, jsonify, request, redirect, send_from_directory, current_app, url_for, flash
 from flask_login import login_user, current_user, logout_user, login_required
 from email_validator import validate_email, EmailNotValidError
-from werkzeug.utils import secure_filename
 from sqlalchemy import or_
 from . import db, bcrypt
 from .models import User, Recipe, Comment, Like
@@ -16,6 +18,9 @@ bp = Blueprint('main', __name__)
 @bp.route("/", methods=['GET', 'POST'])
 @bp.route("/login", methods=['GET', 'POST'])
 def login():
+    """
+    Handle user login.
+    """
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
 
@@ -29,17 +34,29 @@ def login():
             user = User.query.filter_by(email=email).first()
             if user and bcrypt.check_password_hash(user.password, password):
                 login_user(user)
-                return jsonify({'status': 'success', 'redirect': url_for('main.home')})
+                return jsonify({
+                    'status': 'success',
+                    'redirect': url_for('main.home')
+                })
 
-            return jsonify({'status': 'fail', 'message': '- Invalid email or password'}), 401
+            return jsonify({
+                'status': 'fail',
+                'message': '- Invalid email or password'
+            }), 401
         else:
-            return jsonify({'status': 'fail', 'message': 'Unsupported media type'}), 415
+            return jsonify({
+                'status': 'fail',
+                'message': 'Unsupported media type'
+            }), 415
 
     return render_template('login.html')
 
 
 @bp.route("/signup", methods=['POST'])
 def signup():
+    """
+    Handle user registration.
+    """
     name = request.form.get('name')
     email = request.form.get('email')
     password = request.form.get('password')
@@ -67,6 +84,9 @@ def signup():
 
 @bp.route("/check_email", methods=['POST'])
 def check_email():
+    """
+    Check if the provided email already exists.
+    """
     data = request.get_json()
     email = data.get('email')
     user = User.query.filter_by(email=email).first()
@@ -76,13 +96,17 @@ def check_email():
 @bp.route("/home", methods=["GET"])
 @login_required
 def home():
+    """
+    Render the home page with a paginated list of recipes.
+    """
     # Get page number from the query parameter
     # default to 1 if not provided
     page = request.args.get('page', 1, type=int)
 
     # Fetch recipes with pagination, 6 recipes per page
     per_page = 6
-    recipes = Recipe.query.order_by(Recipe.id.desc()).paginate(page=page, per_page=per_page)
+    recipes = Recipe.query.order_by(Recipe.id.desc()).\
+        paginate(page=page, per_page=per_page)
 
     return render_template('home.html', recipes=recipes, user=current_user)
 
@@ -90,6 +114,9 @@ def home():
 @bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
+    """
+    Create a new recipe.
+    """
     if request.method == 'POST':
         title = request.form.get('title')
         description = request.form.get('description')
@@ -99,10 +126,12 @@ def create_recipe():
 
         # Handle image upload
         image = request.files.get('image')
+
+        # Use save_image function to ensure unique filename
         if image and image.filename != '':
-            filename = save_image(image)  # Use save_image function to ensure unique filename
+            filename = save_image(image)
         else:
-            filename = 'default.jpg'  # Or use a default image if no image is uploaded
+            filename = 'default.jpg'
 
         # Save the recipe to the database
         recipe = Recipe(
@@ -124,36 +153,52 @@ def create_recipe():
 
 @bp.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+    """
+    Serve uploaded files from the upload directory.
+    """
+    return send_from_directory(
+        current_app.config['UPLOAD_FOLDER'],
+        filename
+    )
 
 
 @bp.route("/recipe/<int:recipe_id>")
 @login_required
 def recipe(recipe_id):
+    """
+    Retrieve and display a specific recipe.
+    """
     recipe = Recipe.query.get_or_404(recipe_id)
     return render_template('recipe.html', recipe=recipe)
 
 
 def save_image(image_file):
+    """
+    Save an uploaded image to the static uploads directory.
+    """
     # Generate a random filename using secrets module
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(image_file.filename)
     image_filename = random_hex + f_ext
-    image_path = os.path.join(current_app.root_path, 'static/uploads', image_filename)
+    image_path = os.path.join(
+        current_app.root_path, 'static/uploads', image_filename
+    )
 
     # Resize the image to a 6x4 aspect ratio (600px by 400px)
     output_size = (600, 400)
     i = Image.open(image_file)
-    i.thumbnail(output_size)  # Thumbnail resizes while maintaining aspect ratio
+    i.thumbnail(output_size)
     i.save(image_path)
 
     return image_filename
 
 
-# Edit recipe route
 @bp.route('/recipe/edit/<int:recipe_id>', methods=['GET', 'POST'])
 @login_required
 def edit_recipe(recipe_id):
+    """
+    Edit an existing recipe.
+    """
     recipe = Recipe.query.get_or_404(recipe_id)
 
     if recipe.author != current_user:
@@ -175,8 +220,16 @@ def edit_recipe(recipe_id):
                 new_image_filename = save_image(image_file)
 
                 # Remove the old image if it exists
-                if recipe.image_file and os.path.exists(os.path.join(current_app.root_path, 'static/uploads', recipe.image_file)):
-                    os.remove(os.path.join(current_app.root_path, 'static/uploads', recipe.image_file))
+                if recipe.image_file and os.path.exists(
+                    os.path.join(
+                        current_app.root_path, 'static/uploads', recipe.image_file
+                    )
+                ):
+                    os.remove(
+                        os.path.join(
+                            current_app.root_path, 'static/uploads', recipe.image_file
+                        )
+                    )
 
                 # Assign the new filename to the recipe
                 recipe.image_file = new_image_filename
@@ -192,6 +245,9 @@ def edit_recipe(recipe_id):
 @bp.route('/recipe/<int:recipe_id>/delete', methods=['POST'])
 @login_required
 def delete_recipe(recipe_id):
+    """
+    Delete a specific recipe.
+    """
     recipe = Recipe.query.get_or_404(recipe_id)
 
     # Ensure that only the creator can delete their recipe
@@ -218,6 +274,9 @@ def delete_recipe(recipe_id):
 @bp.route('/recipe/<int:recipe_id>', methods=['GET', 'POST'])
 @login_required
 def interact_with_recipe(recipe_id):
+    """
+    Interact with a specific recipe.
+    """
     recipe = Recipe.query.get_or_404(recipe_id)
 
     if request.method == 'POST':
@@ -252,6 +311,9 @@ def interact_with_recipe(recipe_id):
 @bp.route('/recipe/<int:recipe_id>/like', methods=['POST'])
 @login_required
 def like_recipe(recipe_id):
+    """
+    Like or unlike a recipe.
+    """
     recipe = Recipe.query.get_or_404(recipe_id)
     like = Like.query.filter_by(user_id=current_user.id, recipe_id=recipe_id).first()
 
@@ -296,6 +358,9 @@ def like_recipe(recipe_id):
 @bp.route('/comment/<int:comment_id>/delete', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
+    """
+    Delete a specific comment.
+    """
     comment = Comment.query.get_or_404(comment_id)
 
     if comment.user_id != current_user.id:
@@ -317,11 +382,15 @@ def delete_comment(comment_id):
 @bp.route('/my_recipes', methods=['GET'])
 @login_required
 def my_recipes():
+    """
+    Display the current user's recipes.
+    """
     page = request.args.get('page', 1, type=int)
     per_page = 6  # Same pagination as search
 
     # Fetch the current user's recipes
-    recipes = Recipe.query.filter_by(user_id=current_user.id).order_by(Recipe.id.desc()).paginate(page=page, per_page=per_page)
+    recipes = Recipe.query.filter_by(user_id=current_user.id).\
+        order_by(Recipe.id.desc()).paginate(page=page, per_page=per_page)
 
     # Pass a flag to indicate if there are no results
     no_results = recipes.total == 0
@@ -331,6 +400,9 @@ def my_recipes():
 
 
 def search_recipes(query):
+    """
+    Build a query to search recipes by ingredients, title, and tags.
+    """
     search_terms = query.split()
 
     # Build search filters for ingredients, title, and tags
@@ -348,13 +420,17 @@ def search_recipes(query):
 @bp.route('/search', methods=['GET'])
 @login_required
 def search():
+    """
+    Search for recipes based on a query.
+    """
     query = request.args.get('query', '').strip()
     page = request.args.get('page', 1, type=int)
     per_page = 6
 
     if query:
         # Perform the search and paginate results
-        recipes = search_recipes(query).order_by(Recipe.id.desc()).paginate(page=page, per_page=per_page)
+        recipes = search_recipes(query).order_by(Recipe.id.desc()).\
+            paginate(page=page, per_page=per_page)
     else:
         # Redirect to the homepage if the search query is empty
         return redirect(url_for('main.home', page=page))
@@ -367,12 +443,18 @@ def search():
 @bp.route('/settings')
 @login_required
 def settings():
+    """
+    Render the settings page for the user.
+    """
     return render_template('settings.html')
 
 
 @bp.route('/update_name', methods=['POST'])
 @login_required
 def update_name():
+    """
+    Update the current user's username.
+    """
     new_name = request.form.get('name')
     max_length = 20
 
@@ -387,6 +469,9 @@ def update_name():
 @bp.route('/update_email', methods=['POST'])
 @login_required
 def update_email():
+    """
+    Update the current user's email address.
+    """
     new_email = request.form.get('email')
 
     if not new_email:
@@ -418,13 +503,19 @@ def update_email():
 @bp.route('/update_password', methods=['POST'])
 @login_required
 def update_password():
+    """
+    Update the current user's password.
+    """
     current_password = request.form.get('currentPassword')
     new_password = request.form.get('newPassword')
     confirm_password = request.form.get('confirmPassword')
 
     # Check if the new password is at least 8 characters long
     if len(new_password) < 8:
-        return jsonify({'status': 'error', 'message': 'New password must be at least 8 characters long.'})
+        return jsonify({
+            'status': 'error',
+            'message': 'New password must be at least 8 characters long.'
+        })
 
     # Check if the current password is correct
     if not current_user.check_password(current_password):
@@ -443,6 +534,9 @@ def update_password():
 @bp.route('/delete_account', methods=['POST'])
 @login_required
 def delete_account():
+    """
+    Delete the current user's account along with associated data.
+    """
     if current_user.is_authenticated:
         try:
             user = User.query.get(current_user.id)
@@ -452,7 +546,10 @@ def delete_account():
                 for recipe in recipes:
                     # Remove the associated image file if not default
                     if recipe.image_file != 'default.jpg':
-                        image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], recipe.image_file)
+                        image_path = os.path.join(
+                            current_app.config['UPLOAD_FOLDER'],
+                            recipe.image_file
+                        )
                         if os.path.isfile(image_path):
                             os.remove(image_path)
 
@@ -477,7 +574,7 @@ def delete_account():
             # Handle unexpected errors
             db.session.rollback()
             flash('An error occurred while deleting your account. Please try again.', 'danger')
-            return redirect(url_for('main.settings'))  # Redirect back to settings in case of error
+            return redirect(url_for('main.settings'))
 
     return redirect(url_for('main.login'))
 
@@ -485,5 +582,8 @@ def delete_account():
 @bp.route("/logout", methods=['POST'])
 @login_required
 def logout():
+    """
+    Log the current user out and redirect to the login page.
+    """
     logout_user()
     return redirect(url_for('main.login'))
