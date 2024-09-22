@@ -8,7 +8,7 @@ The platform is ideal for home chefs who want to keep their recipes organized, s
 ## Features
 - **User Authentication** (Sign up, Log in, Log out)
 - **Create**, **view**, **edit** & **update**, and **delete** recipes
-- **Upload images for recipes
+- **Upload images** for recipes
 - Search recipes by title, ingredients, and tags
 - Pagination for large lists of recipes
 - Account management (delete account with confirmation)
