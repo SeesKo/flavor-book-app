@@ -1,7 +1,7 @@
 # FlavorBook
 
 ## Project Description
-This Recipe Sharing Platform allows users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections, as well as explore recipes shared by other users. It also includes features like image uploads, pagination, search functionality, and account management.
+This Recipe Sharing Platform enables users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections. They can also explore recipes shared by others. Moreover, the platform includes features such as image uploads, pagination, search functionality, and account management.
 
 The platform is ideal for home chefs who want to keep their recipes organized, share their culinary creations, and explore new dishes.
 
@@ -82,36 +82,53 @@ The platform is ideal for home chefs who want to keep their recipes organized, s
 
 The project uses SQLAlchemy ORM for database management. Here’s an overview of the main database tables and their relationships:
 
-### Users Table
-| Column    | Type          | Description                |
-|-----------|---------------|----------------------------|
+### User Table
+| Column    | Type           | Description                |
+|-----------|----------------|----------------------------|
 | id        | Integer (PK)   | Unique user identifier     |
 | username  | String         | Username of the user       |
 | email     | String         | Email address (unique)     |
 | password  | String         | Hashed password            |
 
-### Recipes Table
-| Column      | Type          | Description                        |
-|-------------|---------------|------------------------------------|
+### Recipe Table
+| Column      | Type           | Description                        |
+|-------------|----------------|------------------------------------|
 | id          | Integer (PK)   | Unique recipe identifier           |
 | title       | String         | Title of the recipe                |
 | description | String         | Brief description of the recipe    |
 | ingredients | Text           | List of ingredients                |
-| instructions| Text           | Preparation instructions           |
+| preparation | Text           | Preparation instructions           |
+| tags        | String         | Optional recipe tags or keywords   |
 | image_file  | String         | Filename of uploaded image         |
 | user_id     | Integer (FK)   | ID of the user who created recipe  |
 | timestamp   | DateTime       | Creation timestamp                 |
 
-### Likes Table (for Recipe Likes)
-| Column    | Type          | Description                        |
-|-----------|---------------|------------------------------------|
+### Comment Table (for Recipe Comments)
+| Column    | Type           | Description                        |
+|-----------|----------------|------------------------------------|
+| id        | Integer (PK)   | Unique like identifier             |
+| text      | Text           | Content of the user's comment      |
+| recipe_id | Integer (FK)   | ID of the recipe being commented on|
+| user_id   | Integer (FK)   | ID of the user who commented       |
+
+### Like Table (for Recipe Likes)
+| Column    | Type           | Description                        |
+|-----------|----------------|------------------------------------|
 | id        | Integer (PK)   | Unique like identifier             |
 | user_id   | Integer (FK)   | ID of the user who liked the recipe|
 | recipe_id | Integer (FK)   | ID of the recipe being liked       |
 
 ### Relationships
 - A **User** can create multiple **Recipes**.
+- A **User** can like multiple **Recipes**.
+- A **User** can leave multiple **Comments**.
+- A **Recipe** can receive multiple **Comments** from different **Users**.
 - A **Recipe** can receive multiple **Likes** from different **Users**.
+- A **Recipe** can only be authored by one **User**.
+- Each **Comment** is linked to a specific **Recipe**.
+- Each **Comment** is linked to a specific **User**.
+- Each **Like** is linked to a specific **User**.
+- Each **Like** is linked to a specific **Recipe**.
 
 
 ## Screenshots
@@ -120,8 +137,23 @@ The project uses SQLAlchemy ORM for database management. Here’s an overview of
 
 ## API Endpoints
 - **`POST /login`:** Logs in a user with an email and password.
+- **`POST /logout`:** Logs out the current user.
 - **`POST /delete_account`:** Deletes the current user's account after confirmation.
+- **`POST /update_name`:** Updates the current user's username.
+- **`POST /update_email`:** Updates the current user's email.
+- **`GET /settings`:** Displays the settings page for the current user.
 - **`GET /my_recipes`:** Returns a paginated list of the current user's recipes.
+- **`POST /create`:** Creates a new recipe.
+- **`GET /recipe/<int:recipe_id>`:** Returns the details of a specific recipe.
+- **`POST /recipe/edit/<int:recipe_id>`:** Edits an existing recipe (only by the recipe author).
+- **`POST /recipe/<int:recipe_id>/delete`:** Deletes a recipe (only by the recipe author).
+- **`GET /uploads/<filename>`:** Retrieves the image associated with a recipe.
+- **`POST /recipe/<int:recipe_id>/like`:** Likes/unlikes a specific recipe.
+- **`POST /recipe/<int:recipe_id>`:** Adds a comment to a specific recipe.
+- **`POST /comment/<int:comment_id>/delete`:** Deletes a comment made by the current user.
+- **`GET /search`:** Searches for recipes based on title, ingredients, or tags.
+- **`GET /`:** Displays the homepage with a list of all recipes.
+- **`GET /home`:** Redirects to the homepage.
 
 ## Author
 Siiko: [Connect with me on LinkedIn](https://www.linkedin.com/in/siiko/)
