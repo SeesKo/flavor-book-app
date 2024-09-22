@@ -6,7 +6,7 @@ This Recipe Sharing Platform enables users to create, view, and share their favo
 The platform is ideal for home chefs who want to keep their recipes organized, share their culinary creations, and explore new dishes.
 
 ## Features
-- User Authentication (Sign up, Log in, Log out)
+- **User Authentication** (Sign up, Log in, Log out)
 - Create, view, edit & update, and delete recipes
 - Upload images for recipes
 - Search recipes by title, ingredients, and tags
