@@ -16,6 +16,7 @@ The platform is ideal for home chefs who want to keep their recipes organized, s
 
 ## Technologies Used
 - **Python (Flask):** Backend framework
+- **JavaScript:** Frontend user interface and client-side validation
 - **Jinja2:** Templating engine for rendering HTML
 - **SQLAlchemy:** ORM for database interactions
 - **SQLite:** Database
@@ -24,7 +25,6 @@ The platform is ideal for home chefs who want to keep their recipes organized, s
 - **Flask-Bcrypt:** Password hashing
 - **Pillow (Python Imaging Library):** A library for opening, manipulating, and saving many different image file formats
 - **HTML, CSS:** For the frontend user interface
-- **JavaScript:** Frontend user interface and client-side validation
 - **Bootstrap:** Frontend styling and components
 
 ## Installation and Setup
