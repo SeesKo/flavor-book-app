@@ -159,4 +159,4 @@ The project uses SQLAlchemy ORM for database management. Here’s an overview of
 Siiko: [Connect with me on LinkedIn](https://www.linkedin.com/in/siiko/)
 
 ## License
-For inquiries regarding licensing or use of this software, please contact this account.
+This project is licensed under an all rights reserved copyright license. Please see the [LICENSE](LICENSE) file for details.
