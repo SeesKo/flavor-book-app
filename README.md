@@ -5,16 +5,16 @@
 </p>
 
 ## Table of Contents
-- [Project Description](#project-description)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation and Setup](#installation-and-setup)
-- [Usage](#usage)
-- [Database Schema](#database-schema)
-- [UI Screenshots](#ui-screenshots)
-- [API Endpoints](#api-endpoints)
-- [Author](#author)
-- [License](#license)
+1. [Project Description](#project-description)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Installation and Setup](#installation-and-setup)
+5. [Usage](#usage)
+6. [Database Schema](#database-schema)
+7. [UI Screenshots](#ui-screenshots)
+8. [API Endpoints](#api-endpoints)
+9. [Author](#author)
+10. [License](#license)
 
 ## Project Description
 This Recipe Sharing Platform enables users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections. They can also explore recipes shared by others. Moreover, the platform includes features such as image uploads, pagination, search functionality, and account management.
