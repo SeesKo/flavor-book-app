@@ -1,5 +1,9 @@
 # FlavorBook
 
+<p align="center">
+  <img src="app/static/images/gh-fltm-logo.jpg" alt="FlavorBook-logo"/>
+</p>
+
 ## Project Description
 This Recipe Sharing Platform enables users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections. They can also explore recipes shared by others. Moreover, the platform includes features such as image uploads, pagination, search functionality, and account management.
 
@@ -131,9 +135,15 @@ The project uses SQLAlchemy ORM for database management. Here’s an overview of
 - Each **Like** is linked to a specific **Recipe**.
 
 
-## Screenshots
+## UI Screenshots
 
+<p align="center">
+  <img src="app/static/images/flb-login-ui.jpg" alt="FlavorBook-logo"/>
+</p>
 
+<p align="center">
+  <img src="app/static/images/flb-homepage-ui.jpg" alt="FlavorBook-logo"/>
+</p>
 
 ## API Endpoints
 - **`POST /login`:** Logs in a user with an email and password.
