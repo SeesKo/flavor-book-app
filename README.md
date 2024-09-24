@@ -1,7 +1,7 @@
 # FlavorBook
 
 <p align="center">
-  <img src="app/static/images/app-logo.jpg" alt="FlavorBook-logo"/>
+  <img src="app/static/images/gh-fltm-logo.jpg" alt="FlavorBook-logo"/>
 </p>
 
 ## Project Description
