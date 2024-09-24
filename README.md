@@ -1,5 +1,9 @@
 # FlavorBook
 
+<p align="center">
+  <img src="app/static/images/app-logo.jpg" alt="FlavorBook-logo"/>
+</p>
+
 ## Project Description
 This Recipe Sharing Platform enables users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections. They can also explore recipes shared by others. Moreover, the platform includes features such as image uploads, pagination, search functionality, and account management.
 
