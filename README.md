@@ -4,6 +4,18 @@
   <img src="app/static/images/gh-fltm-logo.jpg" alt="FlavorBook-logo"/>
 </p>
 
+## Table of Contents
+- [Project Description](#project-description)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation and Setup](#installation-and-setup)
+- [Usage](#usage)
+- [Database Schema](#database-schema)
+- [UI Screenshots](#ui-screenshots)
+- [API Endpoints](#api-endpoints)
+- [Author](#author)
+- [License](#license)
+
 ## Project Description
 This Recipe Sharing Platform enables users to create, view, and share their favorite recipes. Users can sign up, log in, and manage their personal recipe collections. They can also explore recipes shared by others. Moreover, the platform includes features such as image uploads, pagination, search functionality, and account management.
 
